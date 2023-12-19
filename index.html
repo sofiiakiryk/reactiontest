@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Зміна кольору кнопки</title>
+    <style>
+      #colorButton {
+        padding: 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: red; /* Початковий колір - червоний */
+      }
+
+      #reactionTime {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="colorButton" onclick="changeColor()">Натисни мене</button>
+    <p id="reactionTime"></p>
+
+    <script>
+      var startTime;
+      var button = document.getElementById("colorButton");
+      var reactionTimeDisplay = document.getElementById("reactionTime");
+
+      // Автоматична зміна колірної кнопки через випадковий час при завантаженні сторінки
+      setTimeout(function () {
+        button.style.backgroundColor = "green";
+        startTime = new Date().getTime();
+      }, Math.floor(Math.random() * 5000));
+
+      function changeColor() {
+        // Перевірка, чи кнопка зелена перед натисканням
+        if (button.style.backgroundColor === "green") {
+          // Зміна колір кнопки на червоний
+          button.style.backgroundColor = "red";
+
+          // Обчислюємо час реакції користувача
+          var reactionTime = (new Date().getTime() - startTime) / 1000; // переводимо в секунди
+
+          // Виводимо результат на екран
+          reactionTimeDisplay.innerHTML =
+            "Час реакції: " + reactionTime.toFixed(2) + " с";
+
+          // Заборона подальшого натискання на кнопку
+          button.disabled = true;
+
+          // Очікуємо 3 секунди і оновлюємо сторінку
+          setTimeout(function () {
+            location.reload();
+          }, 3000);
+        }
+      }
+    </script>
+  </body>
+</html>
